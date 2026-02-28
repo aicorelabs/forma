@@ -1,0 +1,51 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ── A single chat session (one tab/conversation) ─────────────────
+model Session {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  designs Design[]
+  turns   Turn[]
+}
+
+// ── A generated design artifact ──────────────────────────────────
+model Design {
+  id        String   @id @default(cuid())
+  title     String?
+  prompt    String
+  html      String // SQLite: TEXT by default
+  category  String   @default("poster")
+  format    String   @default("1:1")
+  width     Int      @default(1080)
+  height    Int      @default(1080)
+  version   Int      @default(1)
+  assetUrls String   @default("[]") // JSON string — SQLite has no array type
+  inspoUrls String   @default("[]") // JSON string
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  session   Session? @relation(fields: [sessionId], references: [id])
+  sessionId String?
+}
+
+// ── A single Gemini conversation turn ────────────────────────────
+model Turn {
+  id        String   @id @default(cuid())
+  role      String // 'user' | 'model'
+  text      String
+  createdAt DateTime @default(now())
+
+  session   Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  sessionId String
+}

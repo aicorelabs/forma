@@ -1,0 +1,16 @@
+node_modules/
+.env
+*.log
+.DS_Store
+
+# Prisma SQLite database
+*.db
+*.db-journal
+*.sqlite
+*.sqlite-journal
+
+# Playwright artifacts
+test-results/
+playwright-report/
+blob-report/
+test-artifacts/

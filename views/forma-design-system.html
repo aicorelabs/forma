@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FORMA — Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/forma-design-system.css" />
+</head>
+
+<body>
+
+  <div class="ds-shell">
+    <!-- ╔══════════════════════════════════╗ -->
+    <!-- ║           SIDEBAR NAV           ║ -->
+    <!-- ╚══════════════════════════════════╝ -->
+    <aside class="ds-sidebar">
+      <a href="index.html" style="text-decoration:none; display:contents; color:inherit;">
+        <div class="ds-logo">
+          <div class="ds-logo-mark">
+            <div class="ds-logo-icon">F</div>
+            <div>
+              <div class="ds-logo-name">Forma</div>
+              <div class="ds-logo-sub">Design System v1.0</div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <nav class="ds-nav-section">
+        <div class="ds-nav-label">Global</div>
+        <a href="index.html" class="ds-nav-item">
+          <div class="ds-nav-dot" style="background:var(--color-amber);"></div> Home
+        </a>
+        <a href="forma-app.html" class="ds-nav-item">
+          <div class="ds-nav-dot" style="background:var(--color-jade);"></div> App
+        </a>
+        <a href="library.html" class="ds-nav-item">
+          <div class="ds-nav-dot" style="background:var(--color-amber);"></div> Library
+        </a>
+        <a href="forma-base-prompt.html" class="ds-nav-item">
+          <div class="ds-nav-dot" style="background:var(--color-ember);"></div> Prompts
+        </a>
+      </nav>
+
+      <nav class="ds-nav-section">
+        <div class="ds-nav-label">Foundation</div>
+        <a href="#tokens" class="ds-nav-item active">
+          <div class="ds-nav-dot"></div> Color Tokens
+        </a>
+        <a href="#typography" class="ds-nav-item">
+          <div class="ds-nav-dot"></div> Typography
+        </a>
+        <a href="#spacing" class="ds-nav-item">
+          <div class="ds-nav-dot"></div> Spacing
+        </a>
+        <a href="#motion" class="ds-nav-item">
+          <div class="ds-nav-dot"></div> Motion
+        </a>
+      </nav>
+
+      <nav class="ds-nav-section">
+        <div class="ds-nav-label">Components</div>
+        <a href="#buttons" class="ds-nav-item">
+          <div class="ds-nav-dot"></div> Buttons
+        </a>
+        <a href="#inputs" class="ds-nav-item">
+          <div class="ds-nav-dot"></div> Inputs & Forms
+        </a>
+        <a href="#tags" class="ds-nav-item">
+          <div class="ds-nav-dot"></div> Tags & Badges
+        </a>
+        <a href="#notifications" class="ds-nav-item">
+          <div class="ds-nav-dot"></div> Notifications
+        </a>
+      </nav>
+
+      <nav class="ds-nav-section">
+        <div class="ds-nav-label">Platform UI</div>
+        <a href="#dropzone" class="ds-nav-item">
+          <div class="ds-nav-dot"></div> Asset Upload
+        </a>
+        <a href="#assets" class="ds-nav-item">
+          <div class="ds-nav-dot"></div> Asset Grid
+        </a>
+        <a href="#canvas" class="ds-nav-item">
+          <div class="ds-nav-dot"></div> Canvas Preview
+        </a>
+        <a href="#prompt" class="ds-nav-item">
+          <div class="ds-nav-dot"></div> Prompt Bar
+        </a>
+        <a href="#formats" class="ds-nav-item">
+          <div class="ds-nav-dot"></div> Format Selector
+        </a>
+        <a href="#app-shell" class="ds-nav-item">
+          <div class="ds-nav-dot"></div> App Shell
+        </a>
+      </nav>
+    </aside>
+
+    <!-- ╔══════════════════════════════════╗ -->
+    <!-- ║          MAIN CONTENT           ║ -->
+    <!-- ╚══════════════════════════════════╝ -->
+    <main class="ds-content">
+
+      <!-- ── HERO ───────────────────────────────────────────── -->
+      <div class="hero fade-in">
+        <div class="hero-eyebrow">Design System · v1.0 · 2026</div>
+        <h1 class="hero-title">
+          The <em>ink</em> behind<br>every pixel
+        </h1>
+        <p class="hero-desc">
+          FORMA turns raw assets into native HTML+CSS graphic design — powered by AI, rendered in the browser. This
+          document is the visual language of the platform.
+        </p>
+        <div class="hero-meta">
+          <div class="hero-stat">
+            <div class="hero-stat-value">48</div>
+            <div class="hero-stat-label">Tokens</div>
+          </div>
+          <div class="hero-stat-sep"></div>
+          <div class="hero-stat">
+            <div class="hero-stat-value">3</div>
+            <div class="hero-stat-label">Typefaces</div>
+          </div>
+          <div class="hero-stat-sep"></div>
+          <div class="hero-stat">
+            <div class="hero-stat-value">24+</div>
+            <div class="hero-stat-label">Components</div>
+          </div>
+          <div class="hero-stat-sep"></div>
+          <div class="hero-stat">
+            <div class="hero-stat-value">Dark</div>
+            <div class="hero-stat-label">Theme</div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ══════════════════════════════════════════════════════
+         §01 — COLOR TOKENS
+    ══════════════════════════════════════════════════════ -->
+      <section class="ds-section fade-in fade-in-delay-1" id="tokens">
+        <div class="ds-section-tag">§ 01 — Foundation</div>
+        <h2 class="ds-section-title">Color <em>Tokens</em></h2>
+        <p class="ds-section-desc">A warm near-black palette anchored by a single electric amber accent. Every color has
+          one job — never decorate, always communicate.</p>
+
+        <div class="ds-section-tag" style="margin-bottom:var(--space-3)">Void / Neutrals</div>
+        <div class="token-grid" style="margin-bottom:var(--space-8)">
+          <div class="token-swatch">
+            <div class="swatch-color" style="background:#08080A;border-bottom:1px solid #1C1C20"></div>
+            <div class="swatch-info"><span class="swatch-name">--color-void</span><span
+                class="swatch-value">#08080A</span></div>
+          </div>
+          <div class="token-swatch">
+            <div class="swatch-color" style="background:#101012"></div>
+            <div class="swatch-info"><span class="swatch-name">--color-ink</span><span
+                class="swatch-value">#101012</span></div>
+          </div>
+          <div class="token-swatch">
+            <div class="swatch-color" style="background:#1C1C20"></div>
+            <div class="swatch-info"><span class="swatch-name">--color-graphite</span><span
+                class="swatch-value">#1C1C20</span></div>
+          </div>
+          <div class="token-swatch">
+            <div class="swatch-color" style="background:#2A2A30"></div>
+            <div class="swatch-info"><span class="swatch-name">--color-charcoal</span><span
+                class="swatch-value">#2A2A30</span></div>
+          </div>
+          <div class="token-swatch">
+            <div class="swatch-color" style="background:#4A4A54"></div>
+            <div class="swatch-info"><span class="swatch-name">--color-ash</span><span
+                class="swatch-value">#4A4A54</span></div>
+          </div>
+          <div class="token-swatch">
+            <div class="swatch-color" style="background:#78788A"></div>
+            <div class="swatch-info"><span class="swatch-name">--color-smoke</span><span
+                class="swatch-value">#78788A</span></div>
+          </div>
+          <div class="token-swatch">
+            <div class="swatch-color" style="background:#B0B0C0"></div>
+            <div class="swatch-info"><span class="swatch-name">--color-mist</span><span
+                class="swatch-value">#B0B0C0</span></div>
+          </div>
+          <div class="token-swatch">
+            <div class="swatch-color" style="background:#EEEAE0"></div>
+            <div class="swatch-info"><span class="swatch-name">--color-paper</span><span
+                class="swatch-value">#EEEAE0</span></div>
+          </div>
+        </div>
+
+        <div class="ds-section-tag" style="margin-bottom:var(--space-3)">Brand & Signal</div>
+        <div class="token-grid">
+          <div class="token-swatch">
+            <div class="swatch-color" style="background:#E8C227"></div>
+            <div class="swatch-info"><span class="swatch-name">--color-amber</span><span class="swatch-value">#E8C227 ·
+                Primary</span></div>
+          </div>
+          <div class="token-swatch">
+            <div class="swatch-color" style="background:#A88910"></div>
+            <div class="swatch-info"><span class="swatch-name">--color-amber-dim</span><span
+                class="swatch-value">#A88910 · Pressed</span></div>
+          </div>
+          <div class="token-swatch">
+            <div class="swatch-color" style="background:rgba(232,194,39,0.12)"></div>
+            <div class="swatch-info"><span class="swatch-name">--color-amber-glow</span><span class="swatch-value">rgba
+                · Ambient</span></div>
+          </div>
+          <div class="token-swatch">
+            <div class="swatch-color" style="background:#FF4F1A"></div>
+            <div class="swatch-info"><span class="swatch-name">--color-ember</span><span class="swatch-value">#FF4F1A ·
+                Danger</span></div>
+          </div>
+          <div class="token-swatch">
+            <div class="swatch-color" style="background:#2CE4A0"></div>
+            <div class="swatch-info"><span class="swatch-name">--color-jade</span><span class="swatch-value">#2CE4A0 ·
+                Success</span></div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ══════════════════════════════════════════════════════
+         §02 — TYPOGRAPHY
+    ══════════════════════════════════════════════════════ -->
+      <section class="ds-section" id="typography">
+        <div class="ds-section-tag">§ 02 — Foundation</div>
+        <h2 class="ds-section-title"><em>Type</em> System</h2>
+        <p class="ds-section-desc">Three typefaces, each with a single role. Cormorant Garamond for display drama. Syne
+          for UI clarity. Syne Mono for data and labels.</p>
+
+        <div class="code-block" style="margin-bottom:var(--space-8)">
+          <span class="code-comment">/* Typeface Roles */</span>
+          <span class="code-key">--font-display</span>: <span class="code-str">'Cormorant Garamond'</span>, Georgia,
+          serif; <span class="code-comment">/* headings, hero, display */</span>
+          <span class="code-key">--font-ui</span>: <span class="code-str">'Syne'</span>, sans-serif; <span
+            class="code-comment">/* buttons, labels, body */</span>
+          <span class="code-key">--font-mono</span>: <span class="code-str">'Syne Mono'</span>, monospace; <span
+            class="code-comment">/* code, tags, metadata */</span>
+        </div>
+
+        <div style="margin-bottom:var(--space-6)">
+          <div
+            style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-ash);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:var(--space-4)">
+            Display — Cormorant Garamond</div>
+          <div class="type-scale-item">
+            <div class="type-meta">6xl · 88px · 300</div>
+            <div class="type-sample" style="font-size:var(--text-6xl);font-weight:300;line-height:1">Aa</div>
+          </div>
+          <div class="type-scale-item">
+            <div class="type-meta">5xl · 64px · italic</div>
+            <div class="type-sample" style="font-size:var(--text-5xl);font-style:italic;font-weight:300;line-height:1">
+              Forma AI</div>
+          </div>
+          <div class="type-scale-item">
+            <div class="type-meta">4xl · 48px · 600</div>
+            <div class="type-sample" style="font-size:var(--text-4xl);font-weight:600;line-height:1.1">Design at the
+              speed of thought.</div>
+          </div>
+          <div class="type-scale-item">
+            <div class="type-meta">2xl · 28px · 300</div>
+            <div class="type-sample" style="font-size:var(--text-2xl);font-weight:300">Drop assets. Set the scene. Watch
+              it render.</div>
+          </div>
+        </div>
+
+        <div>
+          <div
+            style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-ash);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:var(--space-4)">
+            UI — Syne</div>
+          <div class="type-scale-item">
+            <div class="type-meta">xl · 22px · 800</div>
+            <div
+              style="font-family:var(--font-ui);font-size:var(--text-xl);font-weight:800;letter-spacing:0.05em;text-transform:uppercase;color:var(--color-paper)">
+              FORMA PLATFORM</div>
+          </div>
+          <div class="type-scale-item">
+            <div class="type-meta">base · 16px · 500</div>
+            <div style="font-family:var(--font-ui);font-size:var(--text-base);font-weight:500;color:var(--color-mist)">
+              Generate stunning HTML+CSS graphics from your raw assets</div>
+          </div>
+          <div class="type-scale-item">
+            <div class="type-meta">xs · 12px · mono</div>
+            <div
+              style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-ash);letter-spacing:0.12em;text-transform:uppercase">
+              PNG · SVG · JPG · WEBP · 1080×1080</div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ══════════════════════════════════════════════════════
+         §03 — SPACING
+    ══════════════════════════════════════════════════════ -->
+      <section class="ds-section" id="spacing">
+        <div class="ds-section-tag">§ 03 — Foundation</div>
+        <h2 class="ds-section-title"><em>Spacing</em> Scale</h2>
+        <p class="ds-section-desc">A 4px base grid. Generous white space is a design decision — negative space
+          communicates confidence.</p>
+        <div class="spacing-row">
+          <div class="spacing-item">
+            <div class="spacing-block" style="--w:4px"></div>
+            <div class="spacing-label">--space-1<br>4px</div>
+          </div>
+          <div class="spacing-item">
+            <div class="spacing-block" style="--w:8px"></div>
+            <div class="spacing-label">--space-2<br>8px</div>
+          </div>
+          <div class="spacing-item">
+            <div class="spacing-block" style="--w:12px"></div>
+            <div class="spacing-label">--space-3<br>12px</div>
+          </div>
+          <div class="spacing-item">
+            <div class="spacing-block" style="--w:16px"></div>
+            <div class="spacing-label">--space-4<br>16px</div>
+          </div>
+          <div class="spacing-item">
+            <div class="spacing-block" style="--w:24px"></div>
+            <div class="spacing-label">--space-6<br>24px</div>
+          </div>
+          <div class="spacing-item">
+            <div class="spacing-block" style="--w:32px"></div>
+            <div class="spacing-label">--space-8<br>32px</div>
+          </div>
+          <div class="spacing-item">
+            <div class="spacing-block" style="--w:48px"></div>
+            <div class="spacing-label">--space-12<br>48px</div>
+          </div>
+          <div class="spacing-item">
+            <div class="spacing-block" style="--w:64px"></div>
+            <div class="spacing-label">--space-16<br>64px</div>
+          </div>
+          <div class="spacing-item">
+            <div class="spacing-block" style="--w:96px"></div>
+            <div class="spacing-label">--space-24<br>96px</div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ══════════════════════════════════════════════════════
+         §04 — MOTION
+    ══════════════════════════════════════════════════════ -->
+      <section class="ds-section" id="motion">
+        <div class="ds-section-tag">§ 04 — Foundation</div>
+        <h2 class="ds-section-title"><em>Motion</em> Language</h2>
+        <p class="ds-section-desc">Motion should feel deliberate and fluid. One choreographed reveal outweighs a dozen
+          scattered micro-interactions.</p>
+
+        <div class="motion-grid">
+          <div class="motion-demo">
+            <div class="motion-el-bounce"></div>
+            <div class="motion-label">ease-out-expo<br>Entrance / bounce</div>
+          </div>
+          <div class="motion-demo">
+            <div class="motion-el-spin"></div>
+            <div class="motion-label">linear<br>Processing / AI gen</div>
+          </div>
+          <div class="motion-demo">
+            <div class="motion-el-fade">
+              <div class="motion-dot-fade"></div>
+              <div class="motion-dot-fade"></div>
+              <div class="motion-dot-fade"></div>
+            </div>
+            <div class="motion-label">staggered<br>Loading / thinking</div>
+          </div>
+        </div>
+
+        <div class="code-block" style="margin-top:var(--space-6)">
+          <span class="code-key">--ease-out-expo</span>: <span class="code-val">cubic-bezier(0.16, 1, 0.3, 1)</span>;
+          <span class="code-comment">/* entrances, modals, dropdowns */</span>
+          <span class="code-key">--ease-in-out</span>: <span class="code-val">cubic-bezier(0.4, 0, 0.2, 1)</span>; <span
+            class="code-comment">/* state transitions, hover */</span>
+          <span class="code-key">--duration-fast</span>: <span class="code-val">120ms</span>; <span
+            class="code-comment">/* hover, focus */</span>
+          <span class="code-key">--duration-base</span>: <span class="code-val">240ms</span>; <span
+            class="code-comment">/* transitions */</span>
+          <span class="code-key">--duration-slow</span>: <span class="code-val">480ms</span>; <span
+            class="code-comment">/* reveals, page loads */</span>
+        </div>
+      </section>
+
+      <div class="ds-divider"></div>
+
+      <!-- ══════════════════════════════════════════════════════
+         §05 — BUTTONS
+    ══════════════════════════════════════════════════════ -->
+      <section class="ds-section" id="buttons">
+        <div class="ds-section-tag">§ 05 — Components</div>
+        <h2 class="ds-section-title"><em>Buttons</em></h2>
+        <p class="ds-section-desc">Minimal hierarchy. One primary action per surface. Amber only for the action that
+          matters most.</p>
+
+        <div
+          style="font-family:var(--font-mono);font-size:var(--text-2xs);color:var(--color-ash);letter-spacing:0.1em;margin-bottom:var(--space-3)">
+          VARIANTS</div>
+        <div class="component-row">
+          <button class="btn btn-primary">Generate Design</button>
+          <button class="btn btn-secondary">Edit Prompt</button>
+          <button class="btn btn-ghost">Cancel</button>
+          <button class="btn btn-danger">Delete</button>
+        </div>
+
+        <div
+          style="font-family:var(--font-mono);font-size:var(--text-2xs);color:var(--color-ash);letter-spacing:0.1em;margin-bottom:var(--space-3);margin-top:var(--space-6)">
+          SIZES</div>
+        <div class="component-row" style="align-items:center">
+          <button class="btn btn-primary btn-sm">Generate</button>
+          <button class="btn btn-primary">Generate Design</button>
+          <button class="btn btn-primary btn-lg">↑ Generate Full Design</button>
+        </div>
+
+        <div
+          style="font-family:var(--font-mono);font-size:var(--text-2xs);color:var(--color-ash);letter-spacing:0.1em;margin-bottom:var(--space-3);margin-top:var(--space-6)">
+          ICON BUTTONS</div>
+        <div class="component-row">
+          <div class="tooltip-wrap">
+            <button class="btn btn-primary btn-icon">✦</button>
+            <div class="tooltip">Generate</div>
+          </div>
+          <div class="tooltip-wrap">
+            <button class="btn btn-ghost btn-icon">⬒</button>
+            <div class="tooltip">Assets</div>
+          </div>
+          <div class="tooltip-wrap">
+            <button class="btn btn-ghost btn-icon">⌘</button>
+            <div class="tooltip">Settings</div>
+          </div>
+          <div class="tooltip-wrap">
+            <button class="btn btn-ghost btn-icon btn-icon-lg">⬡</button>
+            <div class="tooltip">Export</div>
+          </div>
+          <div class="tooltip-wrap">
+            <button class="btn btn-secondary btn-icon">↩</button>
+            <div class="tooltip">Undo</div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ══════════════════════════════════════════════════════
+         §06 — INPUTS
+    ══════════════════════════════════════════════════════ -->
+      <section class="ds-section" id="inputs">
+        <div class="ds-section-tag">§ 06 — Components</div>
+        <h2 class="ds-section-title"><em>Inputs</em> & Forms</h2>
+        <p class="ds-section-desc">Restrained. No ornament. Amber focus ring signals activity without noise.</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);max-width:780px">
+          <div class="input-group">
+            <label class="input-label">Design Name</label>
+            <input class="input" type="text" placeholder="e.g. Summer Campaign Post" />
+            <span class="input-hint">Will be used as the file name on export</span>
+          </div>
+          <div class="input-group">
+            <label class="input-label">Target Format</label>
+            <input class="input" type="text" placeholder="1080×1080 · Instagram Post" />
+            <span class="input-hint">Or select from the format library below</span>
+          </div>
+          <div class="input-group">
+            <label class="input-label">Error State</label>
+            <input class="input input-error" type="text" value="invalid-prompt" />
+            <span class="input-hint error">⚠ Prompt contains restricted characters</span>
+          </div>
+          <div class="input-group">
+            <label class="input-label">Disabled State</label>
+            <input class="input" type="text" value="Rendering in progress…" disabled />
+            <span class="input-hint">Locked while generation is running</span>
+          </div>
+          <div class="input-group" style="grid-column:span 2">
+            <label class="input-label">Style Prompt</label>
+            <textarea class="input textarea"
+              placeholder="e.g. Bold typographic layout, warm earth tones, product in center, elegant serif headline over the hero image…"></textarea>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ══════════════════════════════════════════════════════
+         §07 — TAGS
+    ══════════════════════════════════════════════════════ -->
+      <section class="ds-section" id="tags">
+        <div class="ds-section-tag">§ 07 — Components</div>
+        <h2 class="ds-section-title"><em>Tags</em> & Badges</h2>
+        <p class="ds-section-desc">Semantic micro-labels. Mono typeface only. Color = meaning, not decoration.</p>
+
+        <div class="component-row">
+          <span class="tag tag-amber">✦ AI Generated</span>
+          <span class="tag tag-jade">● Rendering</span>
+          <span class="tag tag-ember">⚠ Error</span>
+          <span class="tag tag-ghost">PNG</span>
+          <span class="tag tag-ghost">1080×1080</span>
+          <span class="tag tag-amber">Pro</span>
+          <span class="tag tag-jade">✓ Exported</span>
+        </div>
+      </section>
+
+
+      <!-- ══════════════════════════════════════════════════════
+         §08 — NOTIFICATIONS
+    ══════════════════════════════════════════════════════ -->
+      <section class="ds-section" id="notifications">
+        <div class="ds-section-tag">§ 08 — Components</div>
+        <h2 class="ds-section-title"><em>Notifications</em></h2>
+        <p class="ds-section-desc">Toasts slide in from the right. They disappear. They never stack more than three.
+          Never interrupt the canvas.</p>
+
+        <div class="toast-stack">
+          <div class="toast toast-success">
+            <div class="toast-icon">✓</div>
+            <div class="toast-content">
+              <div class="toast-title">Design exported</div>
+              <div class="toast-desc">summer-campaign.png · 1080×1080 · 842KB saved to clipboard</div>
+            </div>
+          </div>
+          <div class="toast toast-warn">
+            <div class="toast-icon">⚑</div>
+            <div class="toast-content">
+              <div class="toast-title">Low contrast detected</div>
+              <div class="toast-desc">Text layer on hero image may not meet WCAG AA. Consider darkening the overlay.
+              </div>
+            </div>
+          </div>
+          <div class="toast toast-error">
+            <div class="toast-icon">✕</div>
+            <div class="toast-content">
+              <div class="toast-title">Generation failed</div>
+              <div class="toast-desc">Asset dimensions too small (48×48). Upload at least 400×400px.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Generation Card -->
+        <div class="generate-card" style="margin-top:var(--space-8);max-width:440px">
+          <div class="generate-header">
+            <div class="generate-header-title">AI Rendering</div>
+            <span class="tag tag-jade">● Live</span>
+          </div>
+          <div class="generate-body">
+            <div class="generate-status">
+              <div class="generate-pulse"></div>
+              <span class="generate-status-text">Compositing layers from 3 assets…</span>
+            </div>
+            <div>
+              <div
+                style="font-family:var(--font-mono);font-size:var(--text-2xs);color:var(--color-ash);margin-bottom:var(--space-2);display:flex;justify-content:space-between">
+                <span>Progress</span><span style="color:var(--color-amber)">87%</span></div>
+              <div class="generate-progress">
+                <div class="generate-bar"></div>
+              </div>
+            </div>
+            <div style="display:flex;gap:var(--space-3)">
+              <button class="btn btn-ghost btn-sm" style="flex:1">Cancel</button>
+              <button class="btn btn-primary btn-sm" style="flex:1">Pause</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="ds-divider"></div>
+
+      <!-- ══════════════════════════════════════════════════════
+         §09 — ASSET UPLOAD / DROP ZONE
+    ══════════════════════════════════════════════════════ -->
+      <section class="ds-section" id="dropzone">
+        <div class="ds-section-tag">§ 09 — Platform UI</div>
+        <h2 class="ds-section-title">Asset <em>Upload</em></h2>
+        <p class="ds-section-desc">The primary on-ramp. Drop any image or SVG and Forma reads its palette, dimensions,
+          and structure as the design material.</p>
+
+        <div class="dropzone" onclick="this.classList.toggle('active')">
+          <div class="dropzone-icon">⬒</div>
+          <div class="dropzone-title"><strong>Drop assets</strong> to begin</div>
+          <div class="dropzone-sub">or click to browse from your device</div>
+          <div class="dropzone-formats">
+            <span class="tag tag-ghost">PNG</span>
+            <span class="tag tag-ghost">JPG</span>
+            <span class="tag tag-ghost">SVG</span>
+            <span class="tag tag-ghost">WEBP</span>
+            <span class="tag tag-ghost">GIF</span>
+            <span class="tag tag-amber">Up to 20MB each</span>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ══════════════════════════════════════════════════════
+         §10 — ASSET GRID
+    ══════════════════════════════════════════════════════ -->
+      <section class="ds-section" id="assets">
+        <div class="ds-section-tag">§ 10 — Platform UI</div>
+        <h2 class="ds-section-title">Asset <em>Grid</em></h2>
+        <p class="ds-section-desc">Uploaded assets become the raw material. Select one or many — Forma reads each as
+          HTML/CSS input data.</p>
+
+        <div class="asset-grid">
+          <div class="asset-tile selected" onclick="this.classList.toggle('selected')">
+            <div class="asset-thumb-placeholder" style="background:linear-gradient(135deg,#1a1500,#2a2000)">🏔</div>
+            <div class="asset-check">✓</div>
+            <div class="asset-meta"><span class="asset-name">hero-mountain.jpg</span><span class="asset-type">JPG ·
+                2400×1600</span></div>
+          </div>
+          <div class="asset-tile" onclick="this.classList.toggle('selected')">
+            <div class="asset-thumb-placeholder" style="background:linear-gradient(135deg,#001a0a,#002a10)">🌿</div>
+            <div class="asset-check">✓</div>
+            <div class="asset-meta"><span class="asset-name">product-shot.png</span><span class="asset-type">PNG ·
+                1200×1200</span></div>
+          </div>
+          <div class="asset-tile selected" onclick="this.classList.toggle('selected')">
+            <div class="asset-thumb-placeholder" style="background:linear-gradient(135deg,#1a0010,#2a0018)">⬡</div>
+            <div class="asset-check">✓</div>
+            <div class="asset-meta"><span class="asset-name">logo-mark.svg</span><span class="asset-type">SVG ·
+                Vector</span></div>
+          </div>
+          <div class="asset-tile" onclick="this.classList.toggle('selected')">
+            <div class="asset-thumb-placeholder" style="background:linear-gradient(135deg,#0a0a1a,#10102a)">✦</div>
+            <div class="asset-check">✓</div>
+            <div class="asset-meta"><span class="asset-name">texture-grain.webp</span><span class="asset-type">WEBP ·
+                800×800</span></div>
+          </div>
+          <div class="asset-tile" onclick="this.classList.toggle('selected')">
+            <div class="asset-thumb-placeholder" style="background:linear-gradient(135deg,#1a1000,#2a1800)">◈</div>
+            <div class="asset-check">✓</div>
+            <div class="asset-meta"><span class="asset-name">pattern-dots.png</span><span class="asset-type">PNG ·
+                400×400</span></div>
+          </div>
+          <!-- Skeleton loading tile -->
+          <div class="asset-tile" style="pointer-events:none">
+            <div class="skeleton" style="aspect-ratio:1;width:100%;border-radius:0"></div>
+            <div class="asset-meta" style="display:flex;flex-direction:column;gap:4px">
+              <div class="skeleton" style="height:8px;width:80%"></div>
+              <div class="skeleton" style="height:6px;width:50%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:var(--space-4);display:flex;align-items:center;gap:var(--space-3)">
+          <span class="tag tag-amber">2 selected</span>
+          <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-ash)">Click tiles to
+            select · Cmd+A to select all</span>
+        </div>
+      </section>
+
+
+      <!-- ══════════════════════════════════════════════════════
+         §11 — CANVAS PREVIEW
+    ══════════════════════════════════════════════════════ -->
+      <section class="ds-section" id="canvas">
+        <div class="ds-section-tag">§ 11 — Platform UI</div>
+        <h2 class="ds-section-title">Canvas <em>Preview</em></h2>
+        <p class="ds-section-desc">The generated output renders as live HTML+CSS in the canvas. What you see is
+          literally what you export — no render gap.</p>
+
+        <div class="canvas-preview">
+          <div class="canvas-toolbar">
+            <div class="canvas-title-bar">
+              <div class="canvas-dots">
+                <div class="canvas-dot canvas-dot-r"></div>
+                <div class="canvas-dot canvas-dot-y"></div>
+                <div class="canvas-dot canvas-dot-g"></div>
+              </div>
+              <span class="canvas-filename">summer-campaign-v3.html</span>
+            </div>
+            <div class="canvas-actions">
+              <span class="tag tag-ghost">1080×1080</span>
+              <button class="btn btn-ghost btn-sm">⬍ Resize</button>
+              <button class="btn btn-primary btn-sm">↓ Export</button>
+            </div>
+          </div>
+          <div class="canvas-body">
+            <div class="canvas-placeholder">
+              <div class="canvas-placeholder-icon">✦</div>
+              <div class="canvas-placeholder-text">Your design renders here</div>
+              <span class="tag tag-ghost">HTML · CSS · Live Preview</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ══════════════════════════════════════════════════════
+         §12 — PROMPT BAR
+    ══════════════════════════════════════════════════════ -->
+      <section class="ds-section" id="prompt">
+        <div class="ds-section-tag">§ 12 — Platform UI</div>
+        <h2 class="ds-section-title"><em>Prompt</em> Bar</h2>
+        <p class="ds-section-desc">The primary creative interface. Natural language in — rendered HTML design out. One
+          bar, one purpose.</p>
+
+        <div class="prompt-bar">
+          <span class="prompt-bar-icon">✦</span>
+          <input class="prompt-input" type="text" placeholder="Describe the design… " bold summer feel, product
+            centered, amber warmth, clean serif headline"" />
+          <div class="prompt-actions">
+            <span class="tag tag-ghost">2 assets</span>
+            <button class="btn btn-ghost btn-sm">Style ↓</button>
+            <button class="btn btn-primary">Generate →</button>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-top:var(--space-4)">
+          <span
+            style="font-family:var(--font-mono);font-size:var(--text-2xs);color:var(--color-ash)">Suggestions:</span>
+          <button class="btn btn-ghost btn-sm" style="font-size:var(--text-xs)">Minimalist typography</button>
+          <button class="btn btn-ghost btn-sm" style="font-size:var(--text-xs)">Product hero shot</button>
+          <button class="btn btn-ghost btn-sm" style="font-size:var(--text-xs)">Editorial layout</button>
+          <button class="btn btn-ghost btn-sm" style="font-size:var(--text-xs)">Dark cinematic</button>
+        </div>
+      </section>
+
+
+      <!-- ══════════════════════════════════════════════════════
+         §13 — FORMAT SELECTOR
+    ══════════════════════════════════════════════════════ -->
+      <section class="ds-section" id="formats">
+        <div class="ds-section-tag">§ 13 — Platform UI</div>
+        <h2 class="ds-section-title">Format <em>Selector</em></h2>
+        <p class="ds-section-desc">Output formats are output intentions. Each card encodes aspect ratio, platform
+          context, and export behaviour.</p>
+
+        <div class="format-grid">
+          <div class="format-card selected"
+            onclick="document.querySelectorAll('.format-card').forEach(c=>c.classList.remove('selected'));this.classList.add('selected')">
+            <div class="format-icon">
+              <div class="format-bar format-bar-a" style="flex:1"></div>
+            </div>
+            <div class="format-name">Square</div>
+            <div class="format-dim">1080 × 1080 · IG Post</div>
+          </div>
+          <div class="format-card"
+            onclick="document.querySelectorAll('.format-card').forEach(c=>c.classList.remove('selected'));this.classList.add('selected')">
+            <div class="format-icon">
+              <div class="format-bar" style="height:100%;flex:1.78"></div>
+            </div>
+            <div class="format-name">Landscape</div>
+            <div class="format-dim">1920 × 1080 · Banner</div>
+          </div>
+          <div class="format-card"
+            onclick="document.querySelectorAll('.format-card').forEach(c=>c.classList.remove('selected'));this.classList.add('selected')">
+            <div class="format-icon">
+              <div class="format-bar" style="height:100%;flex:0.56"></div>
+            </div>
+            <div class="format-name">Portrait</div>
+            <div class="format-dim">1080 × 1920 · Story</div>
+          </div>
+          <div class="format-card"
+            onclick="document.querySelectorAll('.format-card').forEach(c=>c.classList.remove('selected'));this.classList.add('selected')">
+            <div class="format-icon">
+              <div class="format-bar format-bar-a" style="flex:1.25"></div>
+            </div>
+            <div class="format-name">Wide Card</div>
+            <div class="format-dim">1200 × 628 · OG / X</div>
+          </div>
+          <div class="format-card"
+            onclick="document.querySelectorAll('.format-card').forEach(c=>c.classList.remove('selected'));this.classList.add('selected')">
+            <div class="format-icon">
+              <div class="format-bar format-bar-a" style="flex:0.7"></div>
+            </div>
+            <div class="format-name">A4 Poster</div>
+            <div class="format-dim">2480 × 3508 · Print</div>
+          </div>
+          <div class="format-card"
+            onclick="document.querySelectorAll('.format-card').forEach(c=>c.classList.remove('selected'));this.classList.add('selected')">
+            <div class="format-icon">
+              <div class="format-bar format-bar-a" style="flex:1.91"></div>
+            </div>
+            <div class="format-name">Cinematic</div>
+            <div class="format-dim">2560 × 1440 · Hero</div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ══════════════════════════════════════════════════════
+         §14 — APP SHELL (Full UI Preview)
+    ══════════════════════════════════════════════════════ -->
+      <section class="ds-section" id="app-shell">
+        <div class="ds-section-tag">§ 14 — Platform UI</div>
+        <h2 class="ds-section-title">App <em>Shell</em></h2>
+        <p class="ds-section-desc">The complete platform composition: icon rail + asset panel + canvas + properties
+          panel. Everything in one viewport, no modal hell.</p>
+
+        <div class="app-sidebar-demo">
+          <!-- Icon rail -->
+          <div class="app-sidebar-nav">
+            <div class="app-nav-icon active" title="Assets">⬒</div>
+            <div class="app-nav-icon" title="Prompt">✦</div>
+            <div class="app-nav-icon" title="History">◷</div>
+            <div style="flex:1"></div>
+            <div class="app-nav-icon" title="Settings">⌘</div>
+            <div class="app-nav-icon" title="Export">↓</div>
+          </div>
+
+          <div class="app-panels">
+            <!-- Left panel: Assets -->
+            <div class="app-panel-left">
+              <div class="app-panel-header">Assets</div>
+              <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+                <div
+                  style="display:flex;gap:var(--space-2);align-items:center;padding:var(--space-2);border-radius:var(--radius-sm);background:var(--color-amber-glow);border:1px solid rgba(232,194,39,0.2)">
+                  <span style="font-size:14px">🏔</span>
+                  <div style="flex:1;min-width:0">
+                    <div
+                      style="font-family:var(--font-mono);font-size:9px;color:var(--color-mist);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+                      hero-mountain.jpg</div>
+                    <div style="font-family:var(--font-mono);font-size:8px;color:var(--color-ash)">JPG · 2400×1600</div>
+                  </div>
+                </div>
+                <div
+                  style="display:flex;gap:var(--space-2);align-items:center;padding:var(--space-2);border-radius:var(--radius-sm)">
+                  <span style="font-size:14px">⬡</span>
+                  <div style="flex:1;min-width:0">
+                    <div
+                      style="font-family:var(--font-mono);font-size:9px;color:var(--color-smoke);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+                      logo-mark.svg</div>
+                    <div style="font-family:var(--font-mono);font-size:8px;color:var(--color-ash)">SVG · Vector</div>
+                  </div>
+                </div>
+                <div
+                  style="display:flex;gap:var(--space-2);align-items:center;padding:var(--space-2);border-radius:var(--radius-sm)">
+                  <span style="font-size:14px">🌿</span>
+                  <div style="flex:1;min-width:0">
+                    <div
+                      style="font-family:var(--font-mono);font-size:9px;color:var(--color-smoke);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+                      product-shot.png</div>
+                    <div style="font-family:var(--font-mono);font-size:8px;color:var(--color-ash)">PNG · 1200×1200</div>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-top:auto">
+                <div class="app-panel-header" style="margin-bottom:var(--space-3)">Format</div>
+                <div
+                  style="font-family:var(--font-mono);font-size:10px;color:var(--color-amber);background:var(--color-amber-glow);padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);border:1px solid rgba(232,194,39,0.2)">
+                  1080 × 1080</div>
+              </div>
+            </div>
+
+            <!-- Canvas -->
+            <div class="app-canvas">
+              <div class="app-canvas-card">
+                <div class="app-card-line app-card-line-a"></div>
+                <div class="app-card-line app-card-line-b"></div>
+                <div class="app-card-line app-card-line-c"></div>
+                <div
+                  style="margin-top:var(--space-2);width:100%;height:32px;border-radius:var(--radius-sm);background:linear-gradient(135deg,var(--color-charcoal),var(--color-graphite))">
+                </div>
+              </div>
+              <div
+                style="position:absolute;bottom:var(--space-3);left:50%;transform:translateX(-50%);white-space:nowrap">
+                <span style="font-family:var(--font-mono);font-size:9px;color:var(--color-ash)">summer-campaign-v3.html
+                  · 1080×1080</span>
+              </div>
+            </div>
+
+            <!-- Right panel: Properties -->
+            <div class="app-panel-right">
+              <div class="app-panel-header">Properties</div>
+              <div class="property-row">
+                <div class="property-label">Layout</div>
+                <div class="property-value">centered hero</div>
+              </div>
+              <div class="property-row">
+                <div class="property-label">Font</div>
+                <div class="property-value">Cormorant 700</div>
+              </div>
+              <div class="property-row">
+                <div class="property-label">Accent</div>
+                <div class="property-value" style="display:flex;align-items:center;gap:4px"><span
+                    style="width:10px;height:10px;border-radius:2px;background:#E8C227;display:inline-block"></span>#E8C227
+                </div>
+              </div>
+              <div class="property-row">
+                <div class="property-label">Overlay</div>
+                <div class="property-value">42% dark</div>
+              </div>
+              <div class="property-row">
+                <div class="property-label">Export</div>
+                <div class="property-value">PNG + HTML</div>
+              </div>
+              <div style="margin-top:auto">
+                <button class="btn btn-primary" style="width:100%;justify-content:center">↓ Export</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ── FOOTER ─────────────────────────────────────────── -->
+      <div style="padding:var(--space-16) 0 var(--space-8);border-top:1px solid var(--color-charcoal)">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-4)">
+          <div style="display:flex;align-items:center;gap:var(--space-3)">
+            <div class="ds-logo-icon" style="width:28px;height:28px;font-size:var(--text-base)">F</div>
+            <div>
+              <div
+                style="font-family:var(--font-ui);font-weight:800;font-size:var(--text-sm);letter-spacing:0.15em;text-transform:uppercase;color:var(--color-white)">
+                FORMA</div>
+              <div style="font-family:var(--font-mono);font-size:var(--text-2xs);color:var(--color-ash)">Design System
+                v1.0 · 2026</div>
+            </div>
+          </div>
+          <div style="font-family:var(--font-mono);font-size:var(--text-2xs);color:var(--color-ash)">
+            HTML is the canvas. CSS is the brush. <span style="color:var(--color-amber)">AI is the artist.</span>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    // Smooth active nav on scroll
+    const sections = document.querySelectorAll('.ds-section[id]');
+    const navItems = document.querySelectorAll('.ds-nav-item');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navItems.forEach(i => i.classList.remove('active'));
+          const active = document.querySelector(`.ds-nav-item[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+
+    // Dropzone drag events
+    const dz = document.querySelector('.dropzone');
+    document.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('active'); });
+    document.addEventListener('dragleave', e => { if (!dz.contains(e.relatedTarget)) dz.classList.remove('active'); });
+    document.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('active'); });
+  </script>
+</body>
+
+</html>

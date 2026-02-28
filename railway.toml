@@ -1,0 +1,12 @@
+[build]
+builder = "nixpacks"
+# Nixpacks will automatically run `npm run build` which we set to `prisma generate && prisma migrate deploy`
+
+[deploy]
+startCommand = "npm start"
+restartPolicyType = "on_failure"
+
+[env]
+# Overrides the local dev.db to point to the persistent volume mount
+DATABASE_URL = "file:/data/sqlite.db"
+PORT = "3000"

@@ -1,0 +1,86 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - link "F Forma" [ref=e3] [cursor=pointer]:
+      - /url: index.html
+      - generic [ref=e4]: F
+      - generic [ref=e5]: Forma
+    - generic [ref=e7]:
+      - link "Library" [ref=e8] [cursor=pointer]:
+        - /url: library.html
+      - link "Prompts" [ref=e9] [cursor=pointer]:
+        - /url: forma-base-prompt.html
+      - link "Design System" [ref=e10] [cursor=pointer]:
+        - /url: forma-design-system.html
+    - generic [ref=e12]:
+      - button "1:1" [ref=e13] [cursor=pointer]
+      - button "9:16" [ref=e14] [cursor=pointer]
+      - button "16:9" [ref=e15] [cursor=pointer]
+      - button "1.91:1" [ref=e16] [cursor=pointer]
+      - button "Print" [ref=e17] [cursor=pointer]
+    - generic [ref=e20]: Ready
+    - button "↓ Export" [disabled]:
+      - generic: ↓
+      - text: Export
+  - generic [ref=e22]:
+    - generic [ref=e23]:
+      - generic [ref=e24]:
+        - generic [ref=e26]: Assets
+        - generic [ref=e27] [cursor=pointer]:
+          - button "⬒ Drop images PNG · JPG · SVG · WEBP" [ref=e28]
+          - generic [ref=e29]: ⬒
+          - generic [ref=e30]:
+            - strong [ref=e31]: Drop images
+            - text: PNG · JPG · SVG · WEBP
+      - generic [ref=e32]:
+        - generic [ref=e34]: Inspiration
+        - generic [ref=e35] [cursor=pointer]:
+          - button "◈ Drop references mood boards, style refs" [ref=e36]
+          - generic [ref=e37]: ◈
+          - generic [ref=e38]:
+            - strong [ref=e39]: Drop references
+            - text: mood boards, style refs
+    - generic [ref=e41]:
+      - generic [ref=e42]:
+        - generic [ref=e47]: untitled-design.html
+        - generic [ref=e48]: 1080 × 1080
+        - generic [ref=e49]:
+          - button "Preview" [ref=e50] [cursor=pointer]
+          - button "Code" [ref=e51] [cursor=pointer]
+      - generic [ref=e52]:
+        - generic [ref=e54]:
+          - generic [ref=e55]: F
+          - generic [ref=e56]: Your design renders here
+          - generic [ref=e57]: Upload assets, add an inspiration reference, then describe your design in the chat. FORMA will generate native HTML+CSS graphics.
+        - iframe [ref=e59]:
+          
+    - generic [ref=e60]:
+      - generic [ref=e61]:
+        - generic [ref=e62]: ✦ Design Chat
+        - button "Clear" [ref=e63] [cursor=pointer]
+      - generic [ref=e65]:
+        - generic [ref=e66]: ✦
+        - generic [ref=e67]: Begin your design
+        - generic [ref=e68]: Upload assets + inspiration, then describe what you want to create. FORMA generates pure HTML+CSS — you keep the code.
+        - generic [ref=e69]:
+          - generic [ref=e70] [cursor=pointer]: Bold product poster
+          - generic [ref=e71] [cursor=pointer]: Editorial layout
+          - generic [ref=e72] [cursor=pointer]: Dark cinematic card
+          - generic [ref=e73] [cursor=pointer]: Minimal type-led design
+          - generic [ref=e74] [cursor=pointer]: Summer campaign story
+      - generic [ref=e75]:
+        - generic [ref=e76]:
+          - textbox "Describe your design, or ask for changes…" [ref=e77]
+          - button "→" [ref=e78] [cursor=pointer]
+        - generic [ref=e79]: ⏎ Send · Shift+⏎ New line
+  - generic [ref=e80]:
+    - generic [ref=e81]: Export design
+    - generic [ref=e82]:
+      - button "⌗ Download HTML" [ref=e83] [cursor=pointer]
+      - button "🖼 Download Image" [ref=e84] [cursor=pointer]
+      - button "✉ Export Chat Log" [ref=e85] [cursor=pointer]
+      - button "⎘ Copy Code" [ref=e86] [cursor=pointer]
+    - button "✕ Close" [ref=e87] [cursor=pointer]
+```

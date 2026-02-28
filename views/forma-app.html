@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FORMA — AI Graphic Design Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,400&family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="/css/forma-app.css" />
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+
+<body>
+
+  <!-- ══ TOP BAR ══════════════════════════════════════════ -->
+  <div id="topbar">
+    <a href="index.html" style="text-decoration:none; display:flex; align-items:center; gap:8px; color:inherit;">
+      <div class="logo-mark">F</div>
+      <div class="logo-name">Forma</div>
+    </a>
+    <div class="topbar-sep"></div>
+    <div style="display:flex; gap:16px;">
+      <a href="library.html"
+        style="color:var(--smoke); font-size:12px; font-family:var(--font-ui); text-decoration:none;">Library</a>
+      <a href="forma-base-prompt.html"
+        style="color:var(--smoke); font-size:12px; font-family:var(--font-ui); text-decoration:none;">Prompts</a>
+      <a href="forma-design-system.html"
+        style="color:var(--smoke); font-size:12px; font-family:var(--font-ui); text-decoration:none;">Design System</a>
+    </div>
+    <div class="topbar-sep"></div>
+    <div class="format-tabs">
+      <button class="fmt-btn active" data-w="1080" data-h="1080" onclick="setFormat(this)">1:1</button>
+      <button class="fmt-btn" data-w="1080" data-h="1920" onclick="setFormat(this)">9:16</button>
+      <button class="fmt-btn" data-w="1920" data-h="1080" onclick="setFormat(this)">16:9</button>
+      <button class="fmt-btn" data-w="1200" data-h="628" onclick="setFormat(this)">1.91:1</button>
+      <button class="fmt-btn" data-w="800" data-h="800" onclick="setFormat(this)">Print</button>
+    </div>
+    <div class="topbar-spacer"></div>
+    <div class="status-pill">
+      <div class="status-dot" id="status-dot"></div>
+      <span id="status-text">Ready</span>
+    </div>
+    <div class="topbar-sep"></div>
+    <button class="btn-export" id="btn-export" onclick="openExport()" disabled>
+      <span>↓</span> Export
+    </button>
+  </div>
+
+  <!-- ══ APP ══════════════════════════════════════════════ -->
+  <div id="app">
+
+    <!-- ── LEFT PANEL ──────────────────────────────────── -->
+    <div id="left">
+      <!-- Assets -->
+      <div class="panel-section">
+        <div class="panel-label">
+          <span>Assets</span>
+          <span class="tag tag-amber" id="asset-count" style="display:none">0</span>
+        </div>
+        <label class="upload-zone" id="asset-zone">
+          <input type="file" multiple accept="image/*,.svg" onchange="addAssets(this.files)" />
+          <div class="upload-zone-icon">⬒</div>
+          <div class="upload-zone-text"><strong>Drop images</strong><br>PNG · JPG · SVG · WEBP</div>
+        </label>
+        <div class="thumb-grid" id="asset-grid"></div>
+        <div class="empty-state" id="asset-empty" style="display:none">No assets yet</div>
+      </div>
+
+      <!-- Inspirations -->
+      <div class="panel-section panel-section flex-grow">
+        <div class="panel-label">
+          <span>Inspiration</span>
+          <span class="tag tag-ghost" id="inspo-count" style="display:none">0</span>
+        </div>
+        <label class="upload-zone" id="inspo-zone">
+          <input type="file" multiple accept="image/*" onchange="addInspos(this.files)" />
+          <div class="upload-zone-icon">◈</div>
+          <div class="upload-zone-text"><strong>Drop references</strong><br>mood boards, style refs</div>
+        </label>
+        <div class="panel-scroll">
+          <div class="thumb-grid" id="inspo-grid"></div>
+          <div class="empty-state" id="inspo-empty" style="display:none">No references yet</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CANVAS ─────────────────────────────────────── -->
+    <div id="center">
+      <div class="canvas-topbar">
+        <div class="canvas-dots">
+          <div class="cdot cdot-r"></div>
+          <div class="cdot cdot-y"></div>
+          <div class="cdot cdot-g"></div>
+        </div>
+        <span class="canvas-filename" id="canvas-filename">untitled-design.html</span>
+        <div style="flex:1"></div>
+        <span class="canvas-size" id="canvas-size">1080 × 1080</span>
+        <div class="canvas-tabs" style="margin-left:10px">
+          <button class="ctab active" onclick="switchView('preview',this)">Preview</button>
+          <button class="ctab" onclick="switchView('code',this)">Code</button>
+        </div>
+      </div>
+
+      <div class="canvas-stage" id="canvas-stage">
+        <div class="canvas-bg"></div>
+        <div class="canvas-empty" id="canvas-empty">
+          <div class="canvas-empty-glyph">F</div>
+          <div class="canvas-empty-title">Your design renders here</div>
+          <div class="canvas-empty-sub">Upload assets, add an inspiration reference, then describe your design in the
+            chat. FORMA will generate native HTML+CSS graphics.</div>
+        </div>
+        <div class="canvas-frame" id="canvas-frame" style="display:none">
+          <iframe id="canvas-iframe" scrolling="no"></iframe>
+        </div>
+      </div>
+
+      <div id="code-view">
+        <pre id="code-pre"></pre>
+      </div>
+    </div>
+
+    <!-- ── CHAT ──────────────────────────────────────── -->
+    <div id="right">
+      <div class="chat-header">
+        <div class="chat-header-title">✦ Design Chat</div>
+        <button class="chat-clear" onclick="clearChat()">Clear</button>
+      </div>
+
+      <div id="chat-messages">
+        <div class="chat-welcome" id="chat-welcome">
+          <div class="chat-welcome-icon">✦</div>
+          <div class="chat-welcome-title">Begin your design</div>
+          <div class="chat-welcome-text">
+            Upload assets + inspiration, then describe what you want to create. FORMA generates pure HTML+CSS — you keep
+            the code.
+          </div>
+          <div class="suggestion-chips">
+            <div class="chip" onclick="useSuggestion(this)">Bold product poster</div>
+            <div class="chip" onclick="useSuggestion(this)">Editorial layout</div>
+            <div class="chip" onclick="useSuggestion(this)">Dark cinematic card</div>
+            <div class="chip" onclick="useSuggestion(this)">Minimal type-led design</div>
+            <div class="chip" onclick="useSuggestion(this)">Summer campaign story</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <div class="chat-input-box">
+          <textarea class="chat-textarea" id="chat-input" rows="1"
+            placeholder="Describe your design, or ask for changes…" onkeydown="handleKey(event)"
+            oninput="autoResize(this)"></textarea>
+          <button class="chat-send" id="send-btn" onclick="sendMessage()">→</button>
+        </div>
+        <div class="chat-hint">⏎ Send · Shift+⏎ New line</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- API key modal removed — GEMINI_API_KEY now lives in server .env -->
+
+  <!-- ══ EXPORT DRAWER ════════════════════════════════════ -->
+  <div id="export-drawer">
+    <div class="drawer-title">Export design</div>
+    <div class="drawer-opts">
+      <button class="drawer-btn" onclick="exportHTML()">⌗ Download HTML</button>
+      <button class="drawer-btn" onclick="exportImage()">🖼 Download Image</button>
+      <button class="drawer-btn" onclick="exportChat()">✉ Export Chat Log</button>
+      <button class="drawer-btn" onclick="copyCode()">⎘ Copy Code</button>
+    </div>
+    <button class="drawer-close" onclick="closeExport()">✕ Close</button>
+  </div>
+
+  <script>
+    /* ════════════════════════════════════════════════════════
+       STATE
+    ════════════════════════════════════════════════════════ */
+    const state = {
+      assets: [],        // {name, url, publicId}  — Cloudinary
+      inspos: [],        // {name, url, publicId}  — Cloudinary
+      messages: [],      // text-only turns [{role, text}] — no images in history
+      chatLog: [],       // {role, text, ts} for display
+      currentHTML: '',
+      currentFormat: { w: 1080, h: 1080 },
+      designVersion: 0,
+      sessionId: null,   // DB session ID — groups all turns in this conversation
+      designId: null,    // DB ID of the latest generated design
+      generating: false,
+    };
+
+    /* ════════════════════════════════════════════════════════
+       INIT
+    ════════════════════════════════════════════════════════ */
+    window.onload = () => {
+      setStatus('ready', 'Ready');
+      setupDrag('asset-zone', addAssets);
+      setupDrag('inspo-zone', addInspos);
+      // Show the canvas frame immediately so format buttons change visible dimensions
+      document.getElementById('canvas-frame').style.display = 'block';
+      fitCanvas();
+      window.addEventListener('resize', fitCanvas);
+    };
+
+    /* ════════════════════════════════════════════════════════
+       STATUS
+    ════════════════════════════════════════════════════════ */
+    function setStatus(type, text) {
+      const dot = document.getElementById('status-dot');
+      dot.className = 'status-dot' + (type === 'idle' ? '' : ` ${type}`);
+      document.getElementById('status-text').textContent = text;
+    }
+
+    /* ════════════════════════════════════════════════════════
+       DRAG & DROP
+    ════════════════════════════════════════════════════════ */
+    function setupDrag(zoneId, handler) {
+      const el = document.getElementById(zoneId);
+      el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('drag'); });
+      el.addEventListener('dragleave', () => el.classList.remove('drag'));
+      el.addEventListener('drop', e => {
+        e.preventDefault(); el.classList.remove('drag');
+        handler(e.dataTransfer.files);
+      });
+    }
+
+    /* ════════════════════════════════════════════════════════
+       FILE HANDLING — upload to Cloudinary via /api/upload
+    ════════════════════════════════════════════════════════ */
+    async function uploadFiles(files, type) {
+      const form = new FormData();
+      for (const f of files) form.append('files', f);
+      form.append('type', type);
+
+      const resp = await fetch('/api/upload', { method: 'POST', body: form });
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({}));
+        throw new Error(err.error || 'Upload failed');
+      }
+      const { data } = await resp.json();
+      return data; // [{url, publicId, originalName, width, height}]
+    }
+
+    async function addAssets(files) {
+      const imgs = Array.from(files).filter(f => f.type.startsWith('image/') || f.name.endsWith('.svg'));
+      if (!imgs.length) return;
+      setStatus('thinking', 'Uploading…');
+      try {
+        const results = await uploadFiles(imgs, 'asset');
+        results.forEach(r => state.assets.push({ name: r.originalName, url: r.url, publicId: r.publicId }));
+        renderAssetGrid();
+        setStatus('ready', 'Ready');
+      } catch (err) {
+        setStatus('error', 'Upload failed');
+        console.error(err);
+      }
+    }
+
+    async function addInspos(files) {
+      const imgs = Array.from(files).filter(f => f.type.startsWith('image/'));
+      if (!imgs.length) return;
+      setStatus('thinking', 'Uploading…');
+      try {
+        const results = await uploadFiles(imgs, 'inspo');
+        results.forEach(r => state.inspos.push({ name: r.originalName, url: r.url, publicId: r.publicId }));
+        renderInspoGrid();
+        setStatus('ready', 'Ready');
+      } catch (err) {
+        setStatus('error', 'Upload failed');
+        console.error(err);
+      }
+    }
+
+    async function removeAsset(idx) {
+      const asset = state.assets[idx];
+      if (asset?.publicId) {
+        await fetch(`/api/upload/${encodeURIComponent(asset.publicId)}`, { method: 'DELETE' }).catch(() => { });
+      }
+      state.assets.splice(idx, 1);
+      renderAssetGrid();
+    }
+    async function removeInspo(idx) {
+      const inspo = state.inspos[idx];
+      if (inspo?.publicId) {
+        await fetch(`/api/upload/${encodeURIComponent(inspo.publicId)}`, { method: 'DELETE' }).catch(() => { });
+      }
+      state.inspos.splice(idx, 1);
+      renderInspoGrid();
+    }
+
+    function renderAssetGrid() {
+      const grid = document.getElementById('asset-grid');
+      const cnt = document.getElementById('asset-count');
+      cnt.textContent = state.assets.length;
+      cnt.style.display = state.assets.length ? 'inline-flex' : 'none';
+      grid.innerHTML = state.assets.map((a, i) => `
+    <div class="thumb-item">
+      <img src="${a.url}" alt="${a.name}" />
+      <div class="asset-idx">${i}</div>
+      <div class="thumb-label">${a.name}</div>
+      <button class="thumb-remove" onclick="removeAsset(${i})">✕</button>
+    </div>`).join('');
+    }
+    function renderInspoGrid() {
+      const grid = document.getElementById('inspo-grid');
+      const cnt = document.getElementById('inspo-count');
+      cnt.textContent = state.inspos.length;
+      cnt.style.display = state.inspos.length ? 'inline-flex' : 'none';
+      grid.innerHTML = state.inspos.map((a, i) => `
+    <div class="thumb-item">
+      <img src="${a.url}" alt="${a.name}" />
+      <div class="thumb-label">${a.name}</div>
+      <button class="thumb-remove" onclick="removeInspo(${i})">✕</button>
+    </div>`).join('');
+    }
+
+    /* ════════════════════════════════════════════════════════
+       CANVAS FITTING
+    ════════════════════════════════════════════════════════ */
+    function fitCanvas() {
+      const stage = document.getElementById('canvas-stage');
+      const frame = document.getElementById('canvas-frame');
+      const iframe = document.getElementById('canvas-iframe');
+      const { w, h } = state.currentFormat;
+
+      const pad = 48;
+      const stageW = stage.clientWidth - pad;
+      const stageH = stage.clientHeight - pad;
+      const scale = Math.min(stageW / w, stageH / h, 1);
+
+      // Set the frame to the real design dimensions
+      frame.style.width = w + 'px';
+      frame.style.height = h + 'px';
+      iframe.width = w;
+      iframe.height = h;
+
+      // Scale down to fit the stage — transform-origin: top center
+      // We compensate for lost layout space manually via a margin trick:
+      // the scaled frame visually occupies (w*scale) x (h*scale)
+      frame.style.transform = `scale(${scale})`;
+      frame.style.marginBottom = `${(h * scale - h)}px`; // negative when scale < 1
+    }
+
+    function setFormat(btn) {
+      document.querySelectorAll('.fmt-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.currentFormat = { w: +btn.dataset.w, h: +btn.dataset.h };
+      document.getElementById('canvas-size').textContent =
+        `${state.currentFormat.w} × ${state.currentFormat.h}`;
+
+      // Always show the canvas frame so dimensions are visible (even before first generate)
+      document.getElementById('canvas-frame').style.display = 'block';
+
+      fitCanvas();
+
+      // If there's a design, re-render it at the new dimensions
+      // (user will need to regenerate for the AI to use the new format,
+      //  but the container updates immediately for visual feedback)
+      if (state.currentHTML) {
+        const iframe = document.getElementById('canvas-iframe');
+        iframe.srcdoc = state.currentHTML; // re-attach to trigger reflow
+      }
+    }
+
+    /* ════════════════════════════════════════════════════════
+       CANVAS RENDERING
+    ════════════════════════════════════════════════════════ */
+    function renderDesign(html) {
+      state.currentHTML = html;
+      state.designVersion++;
+      const name = `forma-design-v${state.designVersion}.html`;
+      document.getElementById('canvas-filename').textContent = name;
+
+      // Show frame, hide empty
+      document.getElementById('canvas-empty').classList.add('hidden');
+      document.getElementById('canvas-frame').style.display = 'block';
+      document.getElementById('btn-export').disabled = false;
+
+      // Inject into iframe
+      const iframe = document.getElementById('canvas-iframe');
+      iframe.srcdoc = html;
+
+      // Code view
+      document.getElementById('code-pre').textContent = html;
+      fitCanvas();
+    }
+
+    function switchView(view, btn) {
+      document.querySelectorAll('.ctab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const stage = document.getElementById('canvas-stage');
+      const codeView = document.getElementById('code-view');
+      if (view === 'code') {
+        stage.style.display = 'none';
+        codeView.style.display = 'block';
+      } else {
+        stage.style.display = 'flex';
+        codeView.style.display = 'none';
+      }
+    }
+
+    /* ════════════════════════════════════════════════════════
+       CHAT
+    ════════════════════════════════════════════════════════ */
+    function handleKey(e) {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+    }
+    function autoResize(el) {
+      el.style.height = 'auto';
+      el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+    }
+    function useSuggestion(el) {
+      document.getElementById('chat-input').value = el.textContent;
+      document.getElementById('chat-input').focus();
+    }
+
+    function addChatMsg(role, text, designSnap) {
+      const log = { role, text, ts: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), designSnap };
+      state.chatLog.push(log);
+      const container = document.getElementById('chat-messages');
+      document.getElementById('chat-welcome')?.remove();
+      const div = document.createElement('div');
+      div.className = `msg ${role}`;
+      div.innerHTML = `
+    <div class="msg-meta">
+      <div class="msg-avatar ${role}">${role === 'user' ? '✎' : 'F'}</div>
+      <span>${role === 'user' ? 'You' : 'Forma AI'}</span>
+      <span>${log.ts}</span>
+    </div>
+    <div class="msg-bubble">${text}</div>
+    ${designSnap ? `
+    <div class="design-badge" onclick="renderDesign(state.currentHTML)">
+      <div class="design-badge-thumb"><div style="width:40px;height:40px;background:var(--charcoal);display:grid;place-items:center;font-size:16px">◈</div></div>
+      <div class="design-badge-info">
+        <div class="design-badge-title">Design v${state.designVersion}</div>
+        <div class="design-badge-sub">${state.currentFormat.w}×${state.currentFormat.h} · HTML+CSS</div>
+      </div>
+      <span class="design-badge-arrow">→</span>
+    </div>` : ''}`;
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+      return div;
+    }
+
+    function addThinking() {
+      const container = document.getElementById('chat-messages');
+      document.getElementById('chat-welcome')?.remove();
+      const div = document.createElement('div');
+      div.className = 'msg ai msg-thinking';
+      div.innerHTML = `
+    <div class="msg-meta">
+      <div class="msg-avatar ai">F</div>
+      <span>Forma AI</span>
+      <span>thinking…</span>
+    </div>
+    <div class="msg-bubble">
+      <div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div>
+    </div>`;
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+      return div;
+    }
+
+    async function sendMessage() {
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if (!text || state.generating) return;
+
+      input.value = '';
+      input.style.height = 'auto';
+      addChatMsg('user', text);
+      await generateDesign(text);
+    }
+
+    function clearChat() {
+      if (!confirm('Clear the conversation?')) return;
+      state.messages = [];
+      state.chatLog = [];
+      state.sessionId = null;  // start a fresh DB session
+      state.designId = null;
+      document.getElementById('chat-messages').innerHTML = `
+    <div class="chat-welcome" id="chat-welcome">
+      <div class="chat-welcome-icon">✦</div>
+      <div class="chat-welcome-title">Begin your design</div>
+      <div class="chat-welcome-text">Upload assets + inspiration, then describe what you want.</div>
+      <div class="suggestion-chips">
+        <div class="chip" onclick="useSuggestion(this)">Bold product poster</div>
+        <div class="chip" onclick="useSuggestion(this)">Editorial layout</div>
+        <div class="chip" onclick="useSuggestion(this)">Dark cinematic card</div>
+        <div class="chip" onclick="useSuggestion(this)">Minimal type-led design</div>
+      </div>
+    </div>`;
+    }
+
+    /* ════════════════════════════════════════════════════════
+       AI GENERATION  — calls backend /api/generate
+    ════════════════════════════════════════════════════════ */
+    async function generateDesign(userPrompt) {
+      state.generating = true;
+      document.getElementById('send-btn').disabled = true;
+      setStatus('thinking', 'Generating…');
+
+      const thinking = addThinking();
+      const { w, h } = state.currentFormat;
+
+      // Map pixel dimensions → format key
+      const formatKey = (() => {
+        if (w === 1080 && h === 1080) return '1:1';
+        if (w === 1080 && h === 1920) return '9:16';
+        if (w === 1920 && h === 1080) return '16:9';
+        if (w === 1200 && h === 628) return '1.91:1';
+        return '1:1';
+      })();
+
+      try {
+        const resp = await fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            prompt: userPrompt,          // just the user text — server reads DB history
+            format: formatKey,
+            assetUrls: state.assets.map(a => a.url),
+            inspoUrls: state.inspos.map(a => a.url),
+            messages: state.messages,      // text-only [{role,text}] turns
+            sessionId: state.sessionId,     // null on first turn — server creates one
+          }),
+        });
+
+        if (!resp.ok) {
+          const err = await resp.json().catch(() => ({}));
+          throw new Error(err.error || `Server error ${resp.status}`);
+        }
+
+        const { data } = await resp.json();
+        let rawHTML = data.html;
+
+        // Persist returned session + design IDs in state
+        state.sessionId = data.sessionId;
+        state.designId = data.designId;
+
+        // Keep text-only history for next iteration (no images, no bloat)
+        state.messages.push(
+          { role: 'user', text: userPrompt },
+          { role: 'model', text: rawHTML },
+        );
+
+        // Inject Cloudinary URLs in place of {{ASSET_N}} placeholders
+        state.assets.forEach((a, i) => {
+          rawHTML = rawHTML.split(`{{ASSET_${i}}}`).join(a.url);
+        });
+
+        renderDesign(rawHTML);
+        thinking.remove();
+
+        const summary = `Design v${state.designVersion} generated — ${w}×${h}px. ` +
+          (state.assets.length ? `Using ${state.assets.length} asset${state.assets.length > 1 ? 's' : ''}. ` : '') +
+          `Saved to session <code>${state.sessionId}</code>.`;
+
+        addChatMsg('ai', summary, true);
+        setStatus('ready', 'Ready');
+
+      } catch (err) {
+        thinking.remove();
+        addChatMsg('ai', `⚠ Generation failed: <code>${err.message}</code>`);
+        setStatus('error', 'Error');
+        console.error(err);
+      }
+
+      state.generating = false;
+      document.getElementById('send-btn').disabled = false;
+    }
+
+    /* ════════════════════════════════════════════════════════
+       EXPORT
+    ════════════════════════════════════════════════════════ */
+    function openExport() {
+      document.getElementById('export-drawer').classList.add('open');
+    }
+    function closeExport() {
+      document.getElementById('export-drawer').classList.remove('open');
+    }
+
+    /* ════════════════════════════════════════════════════════
+       SAVE TO LIBRARY
+    ════════════════════════════════════════════════════════ */
+    async function saveToLibrary() {
+      if (!state.currentHTML) return;
+
+      try {
+        // Derive a short title from the last user prompt
+        const lastUserMsg = state.messages.filter(m => m.role === 'user').slice(-1)[0];
+        const title = lastUserMsg
+          ? lastUserMsg.text.slice(0, 60).replace(/\n.*/s, '')
+          : `Design v${state.designVersion}`;
+
+        // Map format dimensions back to category guess
+        const { w, h } = state.currentFormat;
+        const category = w === h ? 'poster'
+          : w < h ? 'social'
+            : h < 700 ? 'banner'
+              : 'editorial';
+
+        if (state.designId) {
+          // Design was auto-saved on generate — just update title + category
+          await fetch(`/api/designs/${state.designId}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, category }),
+          });
+        } else {
+          // No designId yet (edge case) — save fresh
+          const resp = await fetch('/api/designs', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              prompt: title,
+              html: state.currentHTML,
+              category,
+              format: `${w}:${h}`,
+              width: w,
+              height: h,
+              assetUrls: state.assets.map(a => a.url),
+              inspoUrls: state.inspos.map(a => a.url),
+              sessionId: state.sessionId,
+            }),
+          });
+          if (resp.ok) {
+            const { data } = await resp.json();
+            state.designId = data.id;
+          }
+        }
+
+        // Show a brief toast
+        showToast('Saved to Library ✔');
+      } catch (err) {
+        console.warn('saveToLibrary failed:', err);
+      }
+    }
+
+    function showToast(msg) {
+      let toast = document.getElementById('forma-toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'forma-toast';
+        toast.style.cssText = [
+          'position:fixed', 'bottom:24px', 'left:50%', 'transform:translateX(-50%)',
+          'background:#E9C229', 'color:#08080A', 'font-family:var(--font-mono)',
+          'font-size:12px', 'font-weight:600', 'padding:8px 20px',
+          'border-radius:20px', 'z-index:9999', 'opacity:0',
+          'transition:opacity 0.25s', 'pointer-events:none',
+        ].join(';');
+        document.body.appendChild(toast);
+      }
+      toast.textContent = msg;
+      toast.style.opacity = '1';
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => toast.style.opacity = '0', 2200);
+    }
+
+    function exportHTML() {
+      if (!state.currentHTML) return;
+      const blob = new Blob([state.currentHTML], { type: 'text/html' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `forma-design-v${state.designVersion}.html`;
+      a.click();
+      saveToLibrary();
+      closeExport();
+    }
+    async function exportImage() {
+      const iframe = document.getElementById('canvas-iframe');
+      if (!iframe || !state.currentHTML) return;
+
+      const btn = event.target;
+      const originalText = btn.textContent;
+      btn.textContent = 'Allocating pixels…';
+
+      // We need to render the HTML into a temporary container to capture it with html2canvas correctly, 
+      // ensuring no scaling artifacts from the preview iframe
+      const { w, h } = state.currentFormat;
+      const container = document.createElement('iframe');
+      container.style.position = 'fixed';
+      container.style.top = '-9999px';
+      container.style.width = w + 'px';
+      container.style.height = h + 'px';
+      container.style.border = 'none';
+      document.body.appendChild(container); // Must be in DOM
+
+      container.srcdoc = state.currentHTML;
+
+      // Wait for iframe to load resources
+      await new Promise(r => container.onload = r);
+
+      // Ensure fonts are loaded inside the iframe
+      try {
+        await container.contentWindow.document.fonts.ready;
+      } catch (e) {
+        console.warn('Font loading check failed', e);
+      }
+
+      // Give a small buffer for fonts/images inside to settle
+      await new Promise(r => setTimeout(r, 1000));
+
+      try {
+        const canvas = await html2canvas(container.contentDocument.body, {
+          width: w,
+          height: h,
+          scale: 1, // Exact pixel mapping
+          useCORS: true,
+          logging: false,
+          backgroundColor: null, // Transparent if not set
+          allowTaint: true, // Allow cross-origin images to dirty the canvas
+          foreignObjectRendering: true // Better for complex CSS and fonts (if supported)
+        });
+
+        const link = document.createElement('a');
+        link.download = `forma-design-v${state.designVersion}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      } catch (err) {
+        console.error(err);
+        alert('Could not generate image. See console.');
+      }
+
+      document.body.removeChild(container);
+      btn.textContent = originalText;
+      saveToLibrary();
+      closeExport();
+    }
+
+
+    function copyCode() {
+      if (!state.currentHTML) return;
+      navigator.clipboard.writeText(state.currentHTML).then(() => {
+        const btn = event.target;
+        const orig = btn.textContent;
+        btn.textContent = '✓ Copied!';
+        setTimeout(() => btn.textContent = orig, 2000);
+      });
+    }
+
+    function exportChat() {
+      if (!state.chatLog.length) return;
+      let out = `FORMA — Design Session Export\n${'═'.repeat(50)}\n\n`;
+      out += `Date: ${new Date().toLocaleString()}\n`;
+      out += `Format: ${state.currentFormat.w}×${state.currentFormat.h}px\n`;
+      out += `Design Versions: ${state.designVersion}\n`;
+      out += `Assets Used: ${state.assets.map(a => a.name).join(', ') || 'none'}\n`;
+      out += `${'─'.repeat(50)}\n\n`;
+
+      state.chatLog.forEach(m => {
+        const role = m.role === 'user' ? 'YOU' : 'FORMA AI';
+        out += `[${m.ts}] ${role}\n${m.text}\n\n`;
+      });
+
+      if (state.currentHTML) {
+        out += `${'═'.repeat(50)}\nFINAL HTML OUTPUT\n${'═'.repeat(50)}\n\n${state.currentHTML}`;
+      }
+
+      const blob = new Blob([out], { type: 'text/plain' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `forma-session-${Date.now()}.txt`;
+      a.click();
+      closeExport();
+    }
+  </script>
+</body>
+
+</html>
